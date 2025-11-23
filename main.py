@@ -1,6 +1,6 @@
 import time
 import pygame
-from pynput.mouse import Controller, Button
+from pynput import mouse, keyboard
 
 JOYSTICK_1 = 0
 JOYSTICK_2 = 1
@@ -11,7 +11,8 @@ class EventHandler:
     def __init__(self):
         self._x_offset = 0
         self._y_offset = 0
-        self._mouse = Controller()
+        self._mouse = mouse.Controller()
+        self._keyboard = keyboard.Controller()
 
     def run(self):
         done = False
@@ -43,23 +44,23 @@ class EventHandler:
 
     def _handle_button_down_event_joystick_1(self, event):
         if event.button == 0:  # cross button
-            self._mouse.press(Button.left)
+            self._mouse.press(mouse.Button.left)
         if event.button == 1:  # circle button
-            pass
+            self._keyboard.press(keyboard.Key.esc)
         if event.button == 2:  # square button
-            pass
+            self._keyboard.press(keyboard.Key.space)
         if event.button == 3:  # triangle button
-            self._mouse.press(Button.right)
+            self._mouse.press(mouse.Button.right)
         if event.button == 6:  # options button
-            pass
+            self._keyboard.press(keyboard.Key.f5)
         if event.button == 11:  # up button
-            pass
+            self._keyboard.press(keyboard.Key.up)
         if event.button == 12:  # down button
-            pass
+            self._keyboard.press(keyboard.Key.down)
         if event.button == 13:  # left button
-            pass
+            self._keyboard.press(keyboard.Key.left)
         if event.button == 14:  # right button
-            pass
+            self._keyboard.press(keyboard.Key.right)
 
     def _handle_button_down_event_joystick_2(self, event):
         pass
@@ -72,23 +73,23 @@ class EventHandler:
 
     def _handle_button_up_event_joystick_1(self, event):
         if event.button == 0:  # cross button
-            self._mouse.release(Button.left)
+            self._mouse.release(mouse.Button.left)
         if event.button == 1:  # circle button
-            pass
+            self._keyboard.release(keyboard.Key.esc)
         if event.button == 2:  # square button
-            pass
+            self._keyboard.release(keyboard.Key.space)
         if event.button == 3:  # triangle button
-            self._mouse.release(Button.right)
+            self._mouse.release(mouse.Button.right)
         if event.button == 6:  # options button
-            pass
+            self._keyboard.release(keyboard.Key.f5)
         if event.button == 11:  # up button
-            pass
+            self._keyboard.release(keyboard.Key.up)
         if event.button == 12:  # down button
-            pass
+            self._keyboard.release(keyboard.Key.down)
         if event.button == 13:  # left button
-            pass
+            self._keyboard.release(keyboard.Key.left)
         if event.button == 14:  # right button
-            pass
+            self._keyboard.release(keyboard.Key.right)
 
     def _handle_button_up_event_joystick_2(self, event):
         pass
@@ -126,12 +127,8 @@ class EventHandler:
         pass
 
 # TODO:
- # circle = ESC
- # triangle = right mouse
- # square = SPACE
  # right joystick = arrow keys (repeat)
- # cross keys on left side = arrow keys - but pressed = pressed and released = released (if possible)
- # control = FN + F5
+ # second joystick: arrow keys, cross, triangle, circle, square
 
 if __name__ == "__main__":
     pygame.init()
