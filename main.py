@@ -18,7 +18,7 @@ class EventHandler:
         done = False
         while not done:
             # Event processing
-            # PyGame seems to have an issue with event processing - But when Steam is running everything is fine!
+            # On macOS: PyGame seems to have an issue with event processing (events are not fired) - But when Steam is running everything is fine!
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
