@@ -34,7 +34,7 @@ class EventMapper:
         if event.button == 13:  # left button
             self._execute_button_event(ControllerEvent.LEFT, event_type)
         if event.button == 14:  # right button
-            self._execute_button_event(ControllerEvent.CROSS, event_type)
+            self._execute_button_event(ControllerEvent.RIGHT, event_type)
 
     def _execute_button_event(self, controller_event, controller_event_type):
         if controller_event in self._events:
@@ -50,7 +50,6 @@ class EventMapper:
         controller_event_entries = ["press", "release", "button"]
         for controller_event_entry in controller_event_entries:
             if not self._controller_event_entry_valid(controller_event_entry, controller_event):
-                print("Invalid controller event entry: %s in %s" % (controller_event_entry, controller_event))
                 return False
         return True
 

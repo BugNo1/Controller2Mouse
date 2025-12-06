@@ -27,20 +27,17 @@ CONFIGURATION_JOYSTICK_2 = {
     "name": "Joystick 2",
     "left_stick_is_mouse": False,
     "events": {
-        ControllerEvent.UP: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.up},
-        ControllerEvent.DOWN: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.down},
-        ControllerEvent.LEFT: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.left},
-        ControllerEvent.RIGHT: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.right},
-        ControllerEvent.CROSS: {"press": MOUSE.press, "release": MOUSE.release, "button": mouse.Button.left},
-        ControllerEvent.SQUARE: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.space},
-        ControllerEvent.TRIANGLE: {"press": MOUSE.press, "release": MOUSE.release, "button": mouse.Button.right},
-        ControllerEvent.CIRCLE: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.space},
-        ControllerEvent.OPTIONS: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": keyboard.Key.f5}
+        ControllerEvent.UP: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'w'},
+        ControllerEvent.DOWN: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 's'},
+        ControllerEvent.LEFT: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'a'},
+        ControllerEvent.RIGHT: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'd'},
+        ControllerEvent.CROSS: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'g'},
+        ControllerEvent.SQUARE: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'f'},
+        ControllerEvent.TRIANGLE: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 't'},
+        ControllerEvent.CIRCLE: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": 'h'},
+        ControllerEvent.OPTIONS: {"press": KEYBOARD.press, "release": KEYBOARD.release, "button": None}
     }
 }
-
-# TODO:
- # second joystick: arrow keys, cross, triangle, circle, square, right stick, (left stick disabled)
 
 if __name__ == "__main__":
     pygame.init()
