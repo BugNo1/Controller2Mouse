@@ -1,11 +1,8 @@
-import time
 import pygame
 from pynput import mouse, keyboard
+from event_handler import EventHandler
 from event_mapper import EventMapper
-from event import ControllerEvent, ControllerEventType
-
-JOYSTICK_1 = 0
-JOYSTICK_2 = 1
+from event import ControllerEvent
 
 MOUSE = mouse.Controller()
 KEYBOARD = keyboard.Controller()
@@ -42,62 +39,8 @@ CONFIGURATION_JOYSTICK_2 = {
     }
 }
 
-class EventHandler:
-    def __init__(self, event_mapper_joystick_1, event_mapper_joystick_2):
-        self._x_offset = 0
-        self._y_offset = 0
-        #self._mouse = mouse.Controller()
-        #self._keyboard = keyboard.Controller()
-        #self._thread_pool_joystick_1 = dict()
-        self._event_mapper_joystick_1 = event_mapper_joystick_1
-        self._event_mapper_joystick_2 = event_mapper_joystick_2
-
-    def run(self):
-        try:
-            done = False
-            while not done:
-                # Event processing
-                # On macOS: PyGame seems to have an issue with event processing (events are not fired).
-                # But when Steam is running everything is fine ("PlayStation Controller Support" must be set to "Enabled")!
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        done = True
-
-                    if event.type == pygame.JOYBUTTONDOWN:
-                        self._handle_button_down_event(event)
-
-                    if event.type == pygame.JOYBUTTONUP:
-                        self._handle_button_up_event(event)
-
-                    if event.type == pygame.JOYAXISMOTION:
-                        self._handle_axis_motion_event(event)
-
-                MOUSE.move(int(self._x_offset), int(self._y_offset))
-                time.sleep(0.05)  # needed to not overload the event system
-        except KeyboardInterrupt:
-            self._event_mapper_joystick_1.stop()
-            self._event_mapper_joystick_2.stop()
-
-    def _handle_button_down_event(self, event):
-        if event.instance_id == JOYSTICK_1:
-            self._event_mapper_joystick_1.handle_button_event(event, ControllerEventType.PRESS)
-        elif event.instance_id == JOYSTICK_2:
-            self._event_mapper_joystick_2.handle_button_event(event, ControllerEventType.PRESS)
-
-    def _handle_button_up_event(self, event):
-        if event.instance_id == JOYSTICK_1:
-            self._event_mapper_joystick_1.handle_button_event(event, ControllerEventType.RELEASE)
-        elif event.instance_id == JOYSTICK_2:
-            self._event_mapper_joystick_2.handle_button_event(event, ControllerEventType.RELEASE)
-
-    def _handle_axis_motion_event(self, event):
-        if event.instance_id == JOYSTICK_1:
-            self._x_offset, self._y_offset = self._event_mapper_joystick_1.handle_axis_motion_event(joysticks[event.instance_id], self._x_offset, self._y_offset)
-        elif event.instance_id == JOYSTICK_2:
-            self._x_offset, self._y_offset = self._event_mapper_joystick_2.handle_axis_motion_event(joysticks[event.instance_id], self._x_offset, self._y_offset)
 # TODO:
  # second joystick: arrow keys, cross, triangle, circle, square, right stick, (left stick disabled)
- # move event handler to separate file
 
 if __name__ == "__main__":
     pygame.init()
@@ -109,5 +52,5 @@ if __name__ == "__main__":
     event_mapper_joystick_1 = EventMapper(CONFIGURATION_JOYSTICK_1)
     event_mapper_joystick_2 = EventMapper(CONFIGURATION_JOYSTICK_2)
 
-    event_handler = EventHandler(event_mapper_joystick_1, event_mapper_joystick_2)
+    event_handler = EventHandler(joysticks, event_mapper_joystick_1, event_mapper_joystick_2, MOUSE)
     event_handler.run()
